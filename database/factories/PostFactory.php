@@ -26,7 +26,7 @@ class PostFactory extends Factory
                 return "<p>{$item}</p>";
             })->implode(''),
             'user_id' => User::factory()->create(),
-            'category_id' => Category::factory()->create()
+            // 'category_id' => Category::factory()->create()
         ];
     }
 }
