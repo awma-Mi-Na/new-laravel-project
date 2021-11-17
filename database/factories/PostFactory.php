@@ -25,8 +25,8 @@ class PostFactory extends Factory
             'body' => collect($this->faker->paragraphs(7))->map(function ($item) {
                 return "<p>{$item}</p>";
             })->implode(''),
-            // 'author_id' => User::factory()->create(),
-            // 'category_id' => Category::factory()->create()
+            'user_id' => User::factory()->create(),
+            'category_id' => Category::factory()->create()
         ];
     }
 }

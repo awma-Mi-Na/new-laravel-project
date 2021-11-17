@@ -69,31 +69,31 @@ class DatabaseSeeder extends Seeder
 
         Post::factory(2)->create(
             [
-                'author_id' => $users[0]->id,
+                'user_id' => $users[0]->id,
                 'category_id' => $categories[0]->id
             ]
         );
         Post::factory(1)->create(
             [
-                'author_id' => $users[1]->id,
+                'user_id' => $users[1]->id,
                 'category_id' => $categories[1]->id
             ]
         );
         Post::factory(3)->create(
             [
-                'author_id' => $users[2]->id,
+                'user_id' => $users[2]->id,
                 'category_id' => $categories[2]->id
             ]
         );
         Post::factory(2)->create(
             [
-                'author_id' => $users[0]->id,
+                'user_id' => $users[0]->id,
                 'category_id' => $categories[3]->id
             ]
         );
         Post::factory(4)->create(
             [
-                'author_id' => $users[2]->id,
+                'user_id' => $users[2]->id,
                 'category_id' => $categories[4]->id
             ]
         );
