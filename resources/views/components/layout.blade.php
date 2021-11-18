@@ -51,17 +51,40 @@ defer
 
             <div class="mt-8 md:mt-0 flex items-center">
                 @auth
-                    <span class="text-sm font-bold uppercase">Welcome, {{ auth()->user()->name }} </span>
-                    <form
-                        action="/logout"
-                        method="post"
-                    >
-                        @csrf
-                        <button
-                            type="submit"
-                            class="text-sm ml-6 text-blue-500 "
-                        >Log Out</button>
-                    </form>
+                    <x-dropdown>
+                        <x-slot name="trigger">
+                            <button class="text-sm font-bold uppercase">Welcome, {{ auth()->user()->name }} </button>
+                        </x-slot>
+                        <x-dropdown-item
+                            href="/admin/posts"
+                            :active="request()->routeIs('allposts')"
+                        >
+                            Dashboard
+                        </x-dropdown-item>
+                        <x-dropdown-item
+                            href="/admin/posts/create"
+                            :active="request()->routeIs('newpost')"
+                        >
+                            New Post
+                        </x-dropdown-item>
+                        <x-dropdown-item
+                            href="#"
+                            x-data="{}"
+                            @click.prevent="document.querySelector('#logout-form').submit()"
+                        >
+                            Logout
+                        </x-dropdown-item>
+
+                        <form
+                            id="logout-form"
+                            action="/logout"
+                            method="post"
+                            class="hidden"
+                        >
+                            @csrf
+                        </form>
+                    </x-dropdown>
+
                 @else
                     <a
                         href="/register"

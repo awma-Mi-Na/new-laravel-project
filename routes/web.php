@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AdminPostController;
 use App\Http\Controllers\NewsletterController;
 use App\Http\Controllers\PostCommentsController;
 use App\Http\Controllers\PostController;
@@ -129,3 +130,9 @@ Route::post('posts/{post:slug}/comments', [PostCommentsController::class, 'creat
 
 //? to test mailchimp api
 Route::post('newsletter', NewsletterController::class);
+
+Route::post('admin/posts', [AdminPostController::class, 'store'])->middleware('admin');
+Route::get('admin/posts/create', [AdminPostController::class, 'create'])->middleware('admin')->name('newpost');
+
+Route::get('admin/posts', [AdminPostController::class, 'index'])->middleware('admin')->name('allposts');
+Route::get('admin/posts/{post}/edit', [AdminPostController::class, 'edit'])->middleware('admin')->name('editpost');

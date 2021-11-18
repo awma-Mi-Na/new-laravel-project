@@ -55,15 +55,22 @@ class DatabaseSeeder extends Seeder
         //     'body' => 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Earum quidem voluptatem cum corporis quos sint placeat tempora, fuga in eum. Numquam similique quasi tenetur voluptate quisquam voluptatibus aperiam mollitia placeat.'
         // ]);
         // Post::create([
-        //     'category_id' => $work->id,
-        //     'author_id' => $users[0]->id,
-        //     'title' => 'My Work Post',
-        //     'slug' => 'my-work-post',
-        //     'excerpt' => 'This is a work post',
-        //     'body' => 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Earum quidem voluptatem cum corporis quos sint placeat tempora, fuga in eum. Numquam similique quasi tenetur voluptate quisquam voluptatibus aperiam mollitia placeat.'
+        // 'category_id' => $work->id,
+        // 'author_id' => $users[0]->id,
+        // 'title' => 'My Work Post',
+        // 'slug' => 'my-work-post',
+        // 'excerpt' => 'This is a work post',
+        // 'body' => 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Earum quidem voluptatem cum corporis quos sint placeat tempora, fuga in eum. Numquam similique quasi tenetur voluptate quisquam voluptatibus aperiam mollitia placeat.'
         // ]);
 
+        User::factory()->create([
+            'email' => 'awma@gmail.com',
+            'username' => 'awma123',
+            'password' => 'password'
+        ]);
+
         $users = User::factory(3)->create();
+
 
         $categories = Category::factory(5)->create();
 
