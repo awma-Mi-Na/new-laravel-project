@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Post;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\File;
 use Illuminate\Validation\Rule;
 
 class AdminPostController extends Controller
@@ -54,13 +55,14 @@ class AdminPostController extends Controller
     public function destroy(Post $post)
     {
         $post->delete();
+        File::delete(storage_path('/app/public/thumbnails/' . $post->thumbnail));
 
         return back()->with('success', 'Post Deleted');
     }
 
     public function validatePost(?Post $post = null): array
     {
-        $post ?? new Post();
+        $post = $post ?? new Post();
         $attributes = request()->validate([
             'title' => 'required',
             'slug' => ['required', Rule::unique('posts', 'slug')->ignore($post)],
