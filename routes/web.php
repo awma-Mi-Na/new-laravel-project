@@ -131,8 +131,14 @@ Route::post('posts/{post:slug}/comments', [PostCommentsController::class, 'creat
 //? to test mailchimp api
 Route::post('newsletter', NewsletterController::class);
 
-Route::post('admin/posts', [AdminPostController::class, 'store'])->middleware('admin');
-Route::get('admin/posts/create', [AdminPostController::class, 'create'])->middleware('admin')->name('newpost');
+// grouping routes with same controller, and adding the 7 restful actions on the same line
+Route::middleware('can:admin')->group(function () {
+    Route::resource('admin/posts', AdminPostController::class)->except('show');
+    // Route::post('admin/posts', [AdminPostController::class, 'store']);
+    // Route::get('admin/posts/create', [AdminPostController::class, 'create'])->name('newpost');
 
-Route::get('admin/posts', [AdminPostController::class, 'index'])->middleware('admin')->name('allposts');
-Route::get('admin/posts/{post}/edit', [AdminPostController::class, 'edit'])->middleware('admin')->name('editpost');
+    // Route::get('admin/posts', [AdminPostController::class, 'index'])->name('allposts');
+    // Route::get('admin/posts/{post}/edit', [AdminPostController::class, 'edit'])->name('editpost');
+    // Route::patch('admin/posts/{post}', [AdminPostController::class, 'update'])->name('updatepost');
+    // Route::delete('admin/posts/{post}', [AdminPostController::class, 'destroy'])->name('deletepost');
+});

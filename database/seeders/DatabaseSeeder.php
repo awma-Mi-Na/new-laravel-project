@@ -77,31 +77,36 @@ class DatabaseSeeder extends Seeder
         Post::factory(2)->create(
             [
                 'user_id' => $users[0]->id,
-                'category_id' => $categories[0]->id
+                'category_id' => $categories[0]->id,
+                'thumbnail' => 'XIntnPfkF22VfyajHzvo5xkLMAd3hWHAzHqgUloO.png'
             ]
         );
         Post::factory(1)->create(
             [
                 'user_id' => $users[1]->id,
-                'category_id' => $categories[1]->id
+                'category_id' => $categories[1]->id,
+                'thumbnail' => 'XIntnPfkF22VfyajHzvo5xkLMAd3hWHAzHqgUloO.png'
             ]
         );
         Post::factory(3)->create(
             [
                 'user_id' => $users[2]->id,
-                'category_id' => $categories[2]->id
+                'category_id' => $categories[2]->id,
+                'thumbnail' => 'XIntnPfkF22VfyajHzvo5xkLMAd3hWHAzHqgUloO.png'
             ]
         );
         Post::factory(2)->create(
             [
                 'user_id' => $users[0]->id,
-                'category_id' => $categories[3]->id
+                'category_id' => $categories[3]->id,
+                'thumbnail' => 'XIntnPfkF22VfyajHzvo5xkLMAd3hWHAzHqgUloO.png'
             ]
         );
         Post::factory(4)->create(
             [
                 'user_id' => $users[2]->id,
-                'category_id' => $categories[4]->id
+                'category_id' => $categories[4]->id,
+                'thumbnail' => 'XIntnPfkF22VfyajHzvo5xkLMAd3hWHAzHqgUloO.png'
             ]
         );
     }

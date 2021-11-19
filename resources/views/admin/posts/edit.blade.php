@@ -1,11 +1,12 @@
 <x-layout>
     <x-setting :heading="'Edit post: '. $post->title ">
         <form
-            action="/admin/posts"
+            action="/admin/posts/{{ $post->id }}"
             method="post"
             enctype="multipart/form-data"
         >
             @csrf
+            @method('PATCH')
             <x-form.input
                 field="title"
                 value="{{ old('title', $post->title) }}"
@@ -59,7 +60,7 @@
                 <x-form.error field="category" />
             </x-form.field>
 
-            <x-form.button>Publish</x-form.button>
+            <x-form.button>Update</x-form.button>
         </form>
     </x-setting>
 </x-layout>

@@ -55,6 +55,10 @@ defer
                         <x-slot name="trigger">
                             <button class="text-sm font-bold uppercase">Welcome, {{ auth()->user()->name }} </button>
                         </x-slot>
+                        {{-- @if (auth()->user()->can('admin')) --}}
+                        {{-- @can('admin') --}}
+                        {{-- by creating user-defined blade directive --}}
+                        @admin
                         <x-dropdown-item
                             href="/admin/posts"
                             :active="request()->routeIs('allposts')"
@@ -67,6 +71,7 @@ defer
                         >
                             New Post
                         </x-dropdown-item>
+                        @endadmin
                         <x-dropdown-item
                             href="#"
                             x-data="{}"

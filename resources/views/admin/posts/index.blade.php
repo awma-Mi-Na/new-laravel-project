@@ -33,6 +33,21 @@
                                                 class="text-blue-500 hover:text-blue-700"
                                             >Edit</a>
                                         </td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                                            <form
+                                                action="/admin/posts/{{ $post->id }}"
+                                                method="post"
+                                                x-data="{conf: false, check: false}"
+                                                @submit.prevent="if(conf == false) return;$el.submit()"
+                                            >
+                                                @csrf
+                                                @method('DELETE')
+                                                <button
+                                                    class="text-xs text-blue-400 hover:text-red-400"
+                                                    @click="check = confirm('are you sure want delete: {{ $post->title }}?'); conf = check;"
+                                                >Delete</button>
+                                            </form>
+                                        </td>
                                     </tr>
 
                                 @endforeach

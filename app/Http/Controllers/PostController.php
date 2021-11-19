@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Post;
 use App\Models\Category;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Validation\Rule;
 
 class PostController extends Controller
@@ -13,6 +14,7 @@ class PostController extends Controller
     //
     public function index()
     {
+        // $this->authorize('admin');
         $posts = Post::latest()->filter(request(['search', 'category', 'author']))->paginate(5)->withQueryString();
 
         // if (request('search')) {
