@@ -60,7 +60,49 @@
                 <x-form.error field="category" />
             </x-form.field>
 
-            <x-form.button>Update</x-form.button>
+            <x-form.field>
+
+                <x-form.label field="author" />
+                @php
+                    $authors = \App\Models\User::all();
+                @endphp
+
+
+                <select
+                    name="user_id"
+                    id="user_id"
+                >
+                    @foreach ($authors as $author)
+
+                        <option
+                            value={{ $author->id }}
+                            {{ old('user_id', $post->user_id) == $author->id ? 'selected' : '' }}
+                        >{{ ucwords($author->name) }}</option>
+                    @endforeach
+                </select>
+                <x-form.error field="author" />
+            </x-form.field>
+
+            {{-- <x-form.button
+                name="in_draft"
+                value="0"
+            >Update</x-form.button> --}}
+            <x-form.field>
+                <button
+                    type="submit"
+                    class="text-white uppercase font-semibold text-xs py-2 px-10 rounded-2xl hover:bg-green-600 bg-green-500"
+                    name="in_draft"
+                    value="1"
+                >Save as draft</button>
+            </x-form.field>
+            <x-form.field>
+                <button
+                    type="submit"
+                    class="text-white uppercase font-semibold text-xs py-2 px-10 rounded-2xl hover:bg-green-600 bg-green-500"
+                    name="in_draft"
+                    value="0"
+                >Update</button>
+            </x-form.field>
         </form>
     </x-setting>
 </x-layout>

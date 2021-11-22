@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Jobs\CreateNewPost;
+use App\Jobs\UpdatePost;
 use App\Models\Post;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
@@ -18,6 +19,7 @@ class AdminPostController extends Controller
     public function store()
     {
         $attributes = $this->validatePost(new Post());
+        // dd($attributes);
 
         $attributes['user_id'] = auth()->id();
         $attributes['thumbnail'] = request()->file('thumbnail')->store('/', ['disk' => 'thumbnails_path']);
@@ -46,11 +48,9 @@ class AdminPostController extends Controller
     public function update(Post $post)
     {
         $attributes = $this->validatePost($post);
+        // dd($attributes);
 
-        if (isset($attributes['thumbnail'])) {
-            $attributes['thumbnail'] = request()->file('thumbnail')->store('thumbnails');
-        }
-        $post->update($attributes);
+        UpdatePost::dispatch($attributes, $post);
 
         return back()->with('success', 'Post updated');
     }
@@ -72,7 +72,9 @@ class AdminPostController extends Controller
             'thumbnail' => $post->exists ? ['image'] : ['image', 'required'],
             'excerpt' => 'required',
             'body' => 'required',
-            'category_id' => ['required', Rule::exists('categories', 'id')]
+            'category_id' => ['required', Rule::exists('categories', 'id')],
+            'in_draft' => 'nullable',
+            'user_id' => $post->exists ? ['required'] : ['nullable']
         ]);
 
         return $attributes;

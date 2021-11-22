@@ -4,10 +4,9 @@
     <x-form.label field="{{ $field }}" />
 
     <input
-        class="border border-gray-200 p-2 w-full"
         name="{{ $field }}"
         id="{{ $field }}"
-        {{ $attributes(['value' => old($field)]) }}
+        {{ $attributes(['value' => old($field), 'class' => 'border border-gray-200 p-2 w-full']) }}
     >
 </x-form.field>
 <x-form.error field=" {{ $field }} " />

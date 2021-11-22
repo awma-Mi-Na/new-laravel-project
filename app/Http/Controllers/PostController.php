@@ -15,7 +15,8 @@ class PostController extends Controller
     public function index()
     {
         // $this->authorize('admin');
-        $posts = Post::latest()->filter(request(['search', 'category', 'author']))->paginate(5)->withQueryString();
+
+        $posts = Post::latest()->published()->filter(request(['search', 'category', 'author']))->paginate(5)->withQueryString();
 
         // if (request('search')) {
         //     $posts

@@ -24,7 +24,9 @@
                                             <span
                                                 class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800"
                                             >
-                                                Published
+                                                @if (isset($post->in_draft))
+                                                    {{ $post->in_draft === 1 ? 'Draft' : 'Published' }}
+                                                @endif
                                             </span>
                                         </td>
                                         <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
@@ -44,7 +46,7 @@
                                                 @method('DELETE')
                                                 <button
                                                     class="text-xs text-blue-400 hover:text-red-400"
-                                                    @click="check = confirm('are you sure want delete: {{ $post->title }}?'); conf = check;"
+                                                    @click="check = confirm('are you sure you want to delete: {{ $post->title }}?'); conf = check;"
                                                 >Delete</button>
                                             </form>
                                         </td>

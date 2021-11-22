@@ -45,7 +45,29 @@
                 <x-form.error field="category" />
             </x-form.field>
 
-            <x-form.button>Publish</x-form.button>
+            <div class="flex items-center gap-4">
+
+                {{-- <x-form.button>Publish</x-form.button> --}}
+
+                <x-form.field>
+                    <button
+                        type="submit"
+                        class="text-white uppercase font-semibold text-xs py-2 px-10 rounded-2xl hover:bg-green-600 bg-green-500"
+                        name="in_draft"
+                        value="1"
+                    >Save as draft</button>
+                </x-form.field>
+                <x-form.field>
+                    <button
+                        type="submit"
+                        class="text-white uppercase font-semibold text-xs py-2 px-10 rounded-2xl hover:bg-green-600 bg-green-500"
+                        name="in_draft"
+                        value="0"
+                    >Publish</button>
+                </x-form.field>
+            </div>
+
+
         </form>
     </x-setting>
 </x-layout>
