@@ -8,7 +8,7 @@
                 <li class="font-semibold border-b pb-4">
                     Links
                 </li>
-                <li class="border-b pb-4">
+                <li class="border-b pb-4 text-sm">
                     <a
                         href="/admin/posts"
                         class="{{ request()->routeIs('allposts') ? 'text-blue-500' : '' }}"
@@ -16,7 +16,7 @@
                         All Posts
                     </a>
                 </li>
-                <li class="border-b pb-4">
+                <li class="border-b pb-4 text-sm">
                     <a
                         href="/admin/posts/create"
                         class="{{ request()->routeIs('newpost') ? 'text-blue-500' : '' }}"

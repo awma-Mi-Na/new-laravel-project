@@ -6,6 +6,7 @@ use App\Http\Controllers\PostCommentsController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\SessionsController;
+use App\Jobs\CreateNewPost;
 use App\Services\Newsletter;
 use Illuminate\Support\Facades\Route;
 
@@ -142,3 +143,10 @@ Route::middleware('can:admin')->group(function () {
     // Route::patch('admin/posts/{post}', [AdminPostController::class, 'update'])->name('updatepost');
     // Route::delete('admin/posts/{post}', [AdminPostController::class, 'destroy'])->name('deletepost');
 });
+
+// Route::get('/jobtest', function () {
+//     // (new \App\Jobs\CreateNewPost)->handle();
+//     CreateNewPost::dispatch()->onQueue('higherQueue');
+//     //? jobs can be put on different queues, when executing the worker we can set priorities to the named queues with the --queue option
+//     return ('hello');
+// });

@@ -37,7 +37,7 @@
                 </p>
             </div>
 
-            <footer class="flex justify-between items-center mt-8">
+            <footer class="grid grid-cols-2 items-center mt-8">
                 <a href="/authors/{{ $post->author->username }}">
 
                     <div class="flex items-center text-sm">
@@ -51,7 +51,7 @@
                     </div>
                 </a>
 
-                <div>
+                <div class="justify-self-end cursor-pointer">
                     <a
                         href="/posts/{{ $post->slug }}"
                         class="transition-colors duration-300 text-xs font-semibold bg-gray-200 hover:bg-gray-300 rounded-full py-2 px-8"

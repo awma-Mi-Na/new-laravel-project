@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Jobs\CreateNewPost;
 use App\Models\Post;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
@@ -21,7 +22,9 @@ class AdminPostController extends Controller
         $attributes['user_id'] = auth()->id();
         $attributes['thumbnail'] = request()->file('thumbnail')->store('/', ['disk' => 'thumbnails_path']);
 
-        Post::create($attributes);
+        // Post::create($attributes);
+
+        CreateNewPost::dispatch($attributes);
 
         return redirect('/')->with('success', 'Your post has been added.');
     }
