@@ -2,7 +2,7 @@
 
     <x-panel>
         <form
-            action="/posts/{{ $post->slug }}/comments"
+            action="/comment/{{ $post->slug }}"
             method="post"
         >
             @csrf

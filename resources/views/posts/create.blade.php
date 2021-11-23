@@ -1,7 +1,8 @@
 <x-layout>
-    <x-setting heading="Publish a new post">
+    <section class="max-w-3xl mx-auto mt-4">
+
         <form
-            action="/admin/posts"
+            action="/posts/{{ auth()->user()->username }}"
             method="post"
             enctype="multipart/form-data"
         >
@@ -57,19 +58,9 @@
                         value="1"
                     >Submit draft</button>
                 </x-form.field>
-                @admin
-                <x-form.field>
-                    <button
-                        type="submit"
-                        class="text-white uppercase font-semibold text-xs py-2 px-10 rounded-2xl hover:bg-blue-600 bg-blue-500"
-                        name="in_draft"
-                        value="0"
-                    >Publish</button>
-                </x-form.field>
-                @endadmin
             </div>
 
 
         </form>
-    </x-setting>
+    </section>
 </x-layout>

@@ -70,13 +70,13 @@ defer
                             Dashboard
                         </x-dropdown-item>
 
+                        @endadmin
                         <x-dropdown-item
-                            href="/admin/posts/create"
+                            href="/posts/{{ auth()->user()->username }}/create"
                             :active="request()->routeIs('newpost')"
                         >
                             New Post
                         </x-dropdown-item>
-                        @endadmin
                         <x-dropdown-item
                             href="/user/{{ auth()->user()->username }}/edit"
                             :active="request()->routeIs('usersettings')"

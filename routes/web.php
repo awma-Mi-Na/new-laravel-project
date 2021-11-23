@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AdminPostController;
+use App\Http\Controllers\CommentController;
 use App\Http\Controllers\NewsletterController;
 use App\Http\Controllers\PostCommentsController;
 use App\Http\Controllers\PostController;
@@ -8,7 +9,6 @@ use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\SessionsController;
 use App\Http\Controllers\FeedController;
 use App\Http\Controllers\UserController;
-use App\Jobs\CreateNewPost;
 use App\Services\Newsletter;
 use Illuminate\Support\Facades\Route;
 
@@ -75,7 +75,8 @@ Route::get('/', [PostController::class, 'index'])->name('home');
 
 //! any appropriate attribute can be used to find the page you want, eg. /posts/{post:title}, we just have to change the link attribute in the corresponfing page
 Route::get('/posts/{post:slug}', [PostController::class, 'show']);
-
+Route::get('posts/{user:username}/create', [PostController::class, 'create']);
+Route::post('/posts/{user:username}', [PostController::class, 'store']);
 
 // return $slug;
 // $path = __DIR__ . "/../resources/posts/{$slug}.html";
@@ -129,14 +130,14 @@ Route::post('logout', [SessionsController::class, 'destroy'])->middleware('auth'
 Route::get('login', [SessionsController::class, 'create'])->middleware('guest');
 Route::post('login', [SessionsController::class, 'store'])->middleware('guest');
 
-Route::post('posts/{post:slug}/comments', [PostCommentsController::class, 'create']);
+Route::post('comment/{post:slug}', [PostCommentsController::class, 'create']);
 
 //? to test mailchimp api
 Route::post('newsletter', NewsletterController::class);
 
 // grouping routes with same controller, and adding the 7 restful actions on the same line
 Route::middleware('can:admin')->group(function () {
-    Route::resource('admin/posts', AdminPostController::class)->except('show');
+    Route::resource('admin/posts', AdminPostController::class)->except('show', 'create', 'store');
     // Route::post('admin/posts', [AdminPostController::class, 'store']);
     // Route::get('admin/posts/create', [AdminPostController::class, 'create'])->name('newpost');
 
@@ -157,3 +158,7 @@ Route::get('/feed', FeedController::class);
 
 Route::get('/user/{user:username}/edit', [UserController::class, 'edit'])->name('edituser');
 Route::patch('/user/{user:username}', [UserController::class, 'update'])->name('updateuser');
+
+
+Route::get('/comment/{comment}/edit', [CommentController::class, 'edit']);
+Route::patch('/comment/{comment}/', [CommentController::class, 'update']);

@@ -1,10 +1,7 @@
 {{-- {{ dd($post->title) }} --}}
 
 <x-layout>
-    <x-setting
-        :heading="'Edit post: '. $post->title "
-        :post1="{{ $post }}"
-    >
+    <x-setting :heading="'Edit post: '. $post->title ">
         <form
             action="/admin/posts/{{ $post->id }}"
             method="post"
@@ -28,10 +25,9 @@
                     type='file'
                 />
                 <img
-                    src={{ asset('storage/' . $post->thumbnail) }}
+                    src={{ asset('storage/thumbnails/' . $post->thumbnail) }}
                     alt=""
-                    class="rounded-xl"
-                    width="100"
+                    class="rounded-xl object-cover h-40 w-40"
                 >
             </div>
 
@@ -103,10 +99,10 @@
             <x-form.field>
                 <button
                     type="submit"
-                    class="text-white uppercase font-semibold text-xs py-2 px-10 rounded-2xl hover:bg-green-600 bg-green-500"
+                    class="text-white uppercase font-semibold text-xs py-2 px-10 rounded-2xl hover:bg-blue-600 bg-blue-500"
                     name="in_draft"
                     value="0"
-                >Update</button>
+                >Publish</button>
             </x-form.field>
         </form>
     </x-setting>

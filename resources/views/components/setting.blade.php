@@ -18,8 +18,8 @@
                 </li>
                 <li class="border-b pb-4 text-sm">
                     <a
-                        href="/admin/posts/create"
-                        class="{{ request()->is('admin/posts/create') ? 'text-blue-500' : '' }}"
+                        href="/posts/{{ auth()->user()->username }}/create"
+                        class="{{ request()->is('/posts/' . auth()->user()->username . '/create') ? 'text-blue-500' : '' }}"
                     >
                         New Post
                     </a>

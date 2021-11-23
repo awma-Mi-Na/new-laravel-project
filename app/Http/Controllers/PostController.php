@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Jobs\CreateNewPost;
 use Illuminate\Http\Request;
 use App\Models\Post;
 use App\Models\Category;
+use App\Models\User;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Validation\Rule;
@@ -53,4 +55,47 @@ class PostController extends Controller
     //     return $posts->get();
     // }
 
+    public function create(User $user)
+    {
+        // dd($user);
+        if (auth()->user()->username === $user->username) {
+            if (auth()->user()->username === "awma123")
+                return view('admin.posts.create');
+
+            return view('posts.create');
+        }
+        abort(403);
+    }
+
+    public function store()
+    {
+        $attributes = $this->validatePost(new Post());
+        // dd($attributes);
+
+        $attributes['user_id'] = auth()->id();
+        $attributes['thumbnail'] = request()->file('thumbnail')->store('/', ['disk' => 'thumbnails_path']);
+
+        // Post::create($attributes);
+
+        CreateNewPost::dispatch($attributes);
+
+        return redirect('/')->with('success', 'Your post has been added.');
+    }
+
+    public function validatePost(?Post $post = null): array
+    {
+        $post = $post ?? new Post();
+        $attributes = request()->validate([
+            'title' => 'required',
+            'slug' => ['required', Rule::unique('posts', 'slug')->ignore($post)],
+            'thumbnail' => $post->exists ? ['image'] : ['image', 'required'],
+            'excerpt' => 'required',
+            'body' => 'required',
+            'category_id' => ['required', Rule::exists('categories', 'id')],
+            'in_draft' => 'nullable',
+            'user_id' => $post->exists ? ['required'] : ['nullable']
+        ]);
+
+        return $attributes;
+    }
 }
