@@ -49,5 +49,12 @@ class AppServiceProvider extends ServiceProvider
             if ((auth()->user()) !== null)
                 return auth()->user()->can('admin');
         });
+
+        // Gate::define('user_check', function (User $user) {
+        //     if (auth()->user() !== null) {
+        //         return auth()->user()->username === $user->username;
+        //     }
+        //     return false;
+        // });
     }
 }

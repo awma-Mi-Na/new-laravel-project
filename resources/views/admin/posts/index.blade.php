@@ -1,3 +1,4 @@
+{{-- {{ dd($posts) }} --}}
 <x-layout>
     <x-setting heading="Publish a new post">
         <!-- This example requires Tailwind CSS v2.0+ -->

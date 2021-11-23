@@ -39,6 +39,10 @@ return [
             'driver' => 'local',
             'root' => storage_path('app/public/thumbnails'),
         ],
+        'avatar_path' => [
+            'driver' => 'local',
+            'root' => storage_path('app/public/avatar'),
+        ],
 
         'public' => [
             'driver' => 'local',

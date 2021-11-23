@@ -17,8 +17,8 @@ class PostFactory extends Factory
     public function definition()
     {
         return [
-            // 'user_id' => User::factory()->create(),
-            // 'category_id' => Category::factory()->create(),
+            'user_id' => User::factory()->create(),
+            'category_id' => Category::factory()->create(),
             'title' => $this->faker->sentence(),
             'excerpt' => collect($this->faker->paragraphs(2))->map(function ($item) {
                 return "<p>{$item}</p>";
@@ -26,7 +26,7 @@ class PostFactory extends Factory
             'slug' => $this->faker->slug(),
             'body' => collect($this->faker->paragraphs(7))->map(function ($item) {
                 return "<p>{$item}</p>";
-            })->implode('')
+            })->implode(''),
         ];
     }
 }

@@ -7,14 +7,7 @@
         >
             @csrf
             <header class="flex items-center">
-                <img
-                    src="https://i.pravatar.cc/60?u={{ auth()->id() }}"
-                    alt=""
-                    width="40"
-                    height="40"
-                    class="rounded-full"
-                >
-
+                <x-avatar :photo="auth()->user()->avatar" />
                 <h2 class="ml-4">Want to participate?</h2>
             </header>
             <div class="mt-6">

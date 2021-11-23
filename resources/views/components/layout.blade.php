@@ -50,6 +50,10 @@ defer
             </div>
 
             <div class="mt-8 md:mt-0 flex items-center">
+                {{-- <a
+                    href="/feed"
+                    class="font-bold mr-4 text-xs uppercase"
+                >Feed</a> --}}
                 @auth
                     <x-dropdown>
                         <x-slot name="trigger">
@@ -65,6 +69,7 @@ defer
                         >
                             Dashboard
                         </x-dropdown-item>
+
                         <x-dropdown-item
                             href="/admin/posts/create"
                             :active="request()->routeIs('newpost')"
@@ -72,6 +77,12 @@ defer
                             New Post
                         </x-dropdown-item>
                         @endadmin
+                        <x-dropdown-item
+                            href="/user/{{ auth()->user()->username }}/edit"
+                            :active="request()->routeIs('usersettings')"
+                        >
+                            Account
+                        </x-dropdown-item>
                         <x-dropdown-item
                             href="#"
                             x-data="{}"

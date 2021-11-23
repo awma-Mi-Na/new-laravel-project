@@ -1,5 +1,10 @@
+{{-- {{ dd($post->title) }} --}}
+
 <x-layout>
-    <x-setting :heading="'Edit post: '. $post->title ">
+    <x-setting
+        :heading="'Edit post: '. $post->title "
+        :post1="{{ $post }}"
+    >
         <form
             action="/admin/posts/{{ $post->id }}"
             method="post"

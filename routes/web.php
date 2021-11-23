@@ -6,6 +6,8 @@ use App\Http\Controllers\PostCommentsController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\SessionsController;
+use App\Http\Controllers\FeedController;
+use App\Http\Controllers\UserController;
 use App\Jobs\CreateNewPost;
 use App\Services\Newsletter;
 use Illuminate\Support\Facades\Route;
@@ -150,3 +152,8 @@ Route::middleware('can:admin')->group(function () {
 //     //? jobs can be put on different queues, when executing the worker we can set priorities to the named queues with the --queue option
 //     return ('hello');
 // });
+
+Route::get('/feed', FeedController::class);
+
+Route::get('/user/{user:username}/edit', [UserController::class, 'edit'])->name('edituser');
+Route::patch('/user/{user:username}', [UserController::class, 'update'])->name('updateuser');
