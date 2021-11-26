@@ -38,7 +38,10 @@
             </div>
 
             <footer class="flex justify-between items-center mt-8">
-                <a href="/authors/{{ $post->author->username }}">
+                <a
+                    href="/?author={{ $post->author->username }}  & {{ http_build_query(request()->except('category', 'page')) }}">
+                    {{-- href="?author={{ $post->author->username }}" --}}
+
                     <div class="flex items-center text-sm">
                         <x-avatar :photo="$post->author->avatar" />
                         <div class="ml-3">

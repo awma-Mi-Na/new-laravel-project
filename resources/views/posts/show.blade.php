@@ -1,20 +1,49 @@
-{{-- <link rel="stylesheet" href="/app.css"> --}}
+{{-- @php
+dd(!$post->bookmarks->where('user_id', auth()->user()->id)->count());
+@endphp --}}
 
 <x-layout>
     <section class="px-6 py-8">
         <main class="max-w-6xl mx-auto mt-10 lg:mt-20 space-y-6">
             <article class="max-w-4xl mx-auto lg:grid lg:grid-cols-12 gap-x-10">
-                <div class="col-span-4 lg:text-center lg:pt-14 mb-10">
+                <div class="col-span-4 lg:text-center mb-10">
+                    <div class="mb-8 text-left text-sm">
+                        {{-- <a href="{!! route('createBookmark', ['user' => auth()->user()->id, 'post' => $post->id]) !!}">Add to bookmark</a> --}}
+                        @if (!$post->bookmarks->where('user_id', auth()->user()->id)->count())
+                            <form
+                                action="/bookmark"
+                                method="POST"
+                            >
+                                @csrf
+                                <input
+                                    class="border border-gray-400 p-2 w-full"
+                                    type="hidden"
+                                    name="user_id"
+                                    id="user_id"
+                                    value="{{ auth()->user()->id }}"
+                                >
+                                <input
+                                    class="border border-gray-400 p-2 w-full"
+                                    type="hidden"
+                                    name="post_id"
+                                    id="post_id"
+                                    value="{{ $post->id }}"
+                                >
+                                <button
+                                    type="submit"
+                                    class="hover:underline hover:text-blue-600 text-blue-500"
+                                >Add to bookmark</button>
+                            </form>
+                        @else
+                            <p class="text-red-400">Added to bookmarks</p>
+                        @endif
+                    </div>
                     <img
-                        src={{ asset('storage/' . $post->thumbnail) }}
+                        src={{ asset('storage/thumbnails/' . $post->thumbnail) }}
                         alt=""
                         class="rounded-xl"
                     >
-
-                    <p class="mt-4 block text-gray-400 text-xs">
-                        Published <time> {{ $post->created_at->diffForHumans() }} </time>
-                    </p>
-
+                    <span class="text-center mt-4 block -mb-2 text-sm text-gray-600">By</span>
                     <div class="flex items-center lg:justify-center text-sm mt-4">
                         <x-avatar :photo="$post->author->avatar" />
                         <div class="ml-3 text-left">
@@ -23,6 +52,14 @@
                             </a>
                         </div>
                     </div>
+
+                    <p class="mt-4 block text-gray-400 text-xs">
+                        Published <time> {{ $post->created_at->diffForHumans() }} </time>
+                    </p>
+
+                    <p class="mt-4 block text-gray-400 text-xs">
+                        This post has been viewed {{ $post->no_views }} time{{ $post->no_views > 1 ? 's' : '' }}
+                    </p>
                 </div>
 
                 <div class="col-span-8">

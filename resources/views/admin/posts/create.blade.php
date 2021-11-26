@@ -1,7 +1,7 @@
 <x-layout>
     <x-setting heading="Publish a new post">
         <form
-            action="/admin/posts"
+            action="/posts/{{ auth()->user()->username }}"
             method="post"
             enctype="multipart/form-data"
         >

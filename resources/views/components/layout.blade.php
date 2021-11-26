@@ -62,26 +62,41 @@ defer
                         {{-- @if (auth()->user()->can('admin')) --}}
                         {{-- @can('admin') --}}
                         {{-- by creating user-defined blade directive --}}
+                        {{-- @admin --}}
                         @admin
                         <x-dropdown-item
                             href="/admin/posts"
-                            :active="request()->routeIs('allposts')"
+                            :active="request()->is('admin/posts')"
                         >
                             Dashboard
                         </x-dropdown-item>
-
+                    @else
+                        <x-dropdown-item
+                            href="/{{ auth()->user()->username }}/posts"
+                            :active="request()->routeIs('userposts')"
+                        >
+                            Dashboard
+                        </x-dropdown-item>
                         @endadmin
+
+                        {{-- @endadmin --}}
                         <x-dropdown-item
                             href="/posts/{{ auth()->user()->username }}/create"
-                            :active="request()->routeIs('newpost')"
+                            :active="request()->routeIs('postcreate')"
                         >
                             New Post
                         </x-dropdown-item>
                         <x-dropdown-item
                             href="/user/{{ auth()->user()->username }}/edit"
-                            :active="request()->routeIs('usersettings')"
+                            :active="request()->routeIs('edituser')"
                         >
                             Account
+                        </x-dropdown-item>
+                        <x-dropdown-item
+                            href="/bookmark"
+                            :active="request()->routeIs('allBookmark') "
+                        >
+                            Bookmarks
                         </x-dropdown-item>
                         <x-dropdown-item
                             href="#"

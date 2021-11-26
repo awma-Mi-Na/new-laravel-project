@@ -24,13 +24,16 @@ class UserController extends Controller
 
     public function update(User $user)
     {
-        $user_before = $user;
+        // $user_before = $user;
         $attributes = $this->validateUser($user);
-        $attributes['avatar'] = request()->file('avatar')->store('/', ['disk' => 'avatar_path']);
+        if (isset($attributes['avatar'])) {
+            # code...
+            $attributes['avatar'] = request()->file('avatar')->store('/', ['disk' => 'avatar_path']);
+        }
         $user->update($attributes);
         // dd($user_before, $user);
 
-        return redirect("/auth/{{auth()->user()->username}}")->with('success', 'Account details have been updated!');
+        return back()->with('success', 'Account details have been updated!');
     }
 
     public function validateUser(?User $user = null): array

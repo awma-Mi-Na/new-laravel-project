@@ -1,6 +1,6 @@
 <x-layout>
     {{-- {{ dd(auth()->user()->username) }} --}}
-    <section class="max-w-3xl mx-auto py-8 ">
+    <x-setting heading="Edit Account Details">
         <form
             action="/user/{{ $user->username }}"
             method="post"
@@ -15,9 +15,9 @@
                 />
 
                 {{-- <img
-                    src="{{ asset("storage/thumbnails/$user->avatar") }}"
-                    alt="avatar"
-                    class="rounded-full w-24 h-24 object-cover"
+                src="{{ asset("storage/thumbnails/$user->avatar") }}"
+                alt="avatar"
+                class="rounded-full w-24 h-24 object-cover"
                 > --}}
                 <x-avatar
                     :photo="$user->avatar"
@@ -43,5 +43,5 @@
             <x-form.button>Confirm changes</x-form.button>
 
         </form>
-    </section>
+    </x-setting>
 </x-layout>

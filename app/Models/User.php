@@ -43,6 +43,8 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+    //? setting default values for attributes
+    protected $attributes = ['avatar' => 'gmuaQo7VUBIE9kAIRdXSzJav7DxFqPBTgykfMu5N.jpg'];
     public function posts()
     {
         return $this->hasMany(Post::class);
@@ -52,5 +54,10 @@ class User extends Authenticatable
     public function setPasswordAttribute($password)
     {
         $this->attributes['password'] = bcrypt($password);
+    }
+
+    public function bookmarks()
+    {
+        return $this->hasMany(Bookmark::class);
     }
 }

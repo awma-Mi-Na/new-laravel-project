@@ -78,7 +78,6 @@ class DatabaseSeeder extends Seeder
             [
                 'user_id' => $users[0]->id,
                 'category_id' => $categories[0]->id,
-                'thumbnail' => 'XIntnPfkF22VfyajHzvo5xkLMAd3hWHAzHqgUloO.png',
                 'in_draft' => 0
             ]
         );
@@ -86,7 +85,6 @@ class DatabaseSeeder extends Seeder
             [
                 'user_id' => $users[1]->id,
                 'category_id' => $categories[1]->id,
-                'thumbnail' => 'XIntnPfkF22VfyajHzvo5xkLMAd3hWHAzHqgUloO.png',
                 'in_draft' => 0
             ]
         );
@@ -94,7 +92,6 @@ class DatabaseSeeder extends Seeder
             [
                 'user_id' => $users[2]->id,
                 'category_id' => $categories[2]->id,
-                'thumbnail' => 'XIntnPfkF22VfyajHzvo5xkLMAd3hWHAzHqgUloO.png',
                 'in_draft' => 0
             ]
         );
@@ -102,7 +99,6 @@ class DatabaseSeeder extends Seeder
             [
                 'user_id' => $users[0]->id,
                 'category_id' => $categories[3]->id,
-                'thumbnail' => 'XIntnPfkF22VfyajHzvo5xkLMAd3hWHAzHqgUloO.png',
                 'in_draft' => 0
             ]
         );
@@ -110,7 +106,6 @@ class DatabaseSeeder extends Seeder
             [
                 'user_id' => $users[2]->id,
                 'category_id' => $categories[4]->id,
-                'thumbnail' => 'XIntnPfkF22VfyajHzvo5xkLMAd3hWHAzHqgUloO.png',
                 'in_draft' => 0
             ]
         );

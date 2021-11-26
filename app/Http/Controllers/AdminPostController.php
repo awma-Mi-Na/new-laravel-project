@@ -16,20 +16,20 @@ class AdminPostController extends Controller
     //     return view('admin.posts.create');
     // }
 
-    // public function store()
-    // {
-    //     $attributes = $this->validatePost(new Post());
-    //     // dd($attributes);
+    public function store()
+    {
+        $attributes = $this->validatePost(new Post());
+        // dd($attributes);
 
-    //     $attributes['user_id'] = auth()->id();
-    //     $attributes['thumbnail'] = request()->file('thumbnail')->store('/', ['disk' => 'thumbnails_path']);
+        $attributes['user_id'] = auth()->id();
+        $attributes['thumbnail'] = request()->file('thumbnail')->store('/', ['disk' => 'thumbnails_path']);
 
-    //     // Post::create($attributes);
+        // Post::create($attributes);
 
-    //     CreateNewPost::dispatch($attributes);
+        CreateNewPost::dispatch($attributes);
 
-    //     return redirect('/')->with('success', 'Your post has been added.');
-    // }
+        return redirect('/')->with('success', 'Your post has been added.');
+    }
 
     public function index()
     {

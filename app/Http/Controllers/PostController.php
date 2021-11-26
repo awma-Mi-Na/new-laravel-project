@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Jobs\CreateNewPost;
+use App\Jobs\UpdatePost;
 use Illuminate\Http\Request;
 use App\Models\Post;
 use App\Models\Category;
@@ -25,6 +26,13 @@ class PostController extends Controller
         //         ->where('title', 'like', '%' . request('search') . '%')
         //         ->orWhere('body', 'like', '%' . request('search') . '%');
         // }
+        // $client = request()->ip();
+        // request()->session()->put('ip', $client);
+
+        // $server = request()->server('SERVER_ADDR');
+        // request()->session()->put('ip_server', $server);
+
+        // dd(request()->session()->all());
 
         return view('posts.index', [
             'posts' => $posts //->with('category', 'author')->get() //!also possible to use array as parameter in with()
@@ -35,6 +43,9 @@ class PostController extends Controller
     {
 
         //? what to do? => find a post by its id and display it on the view 'post'
+        $post->no_views = ++$post->no_views;
+        $post->save();
+        // dd($post->no_views);
 
         return view('posts.show', [
             'post' => $post,
@@ -57,12 +68,12 @@ class PostController extends Controller
 
     public function create(User $user)
     {
-        // dd($user);
+        // dd(request()->is('posts/' . auth()->user()->username . '/create'));
         if (auth()->user()->username === $user->username) {
-            if (auth()->user()->username === "awma123")
-                return view('admin.posts.create');
+            // if (auth()->user()->username === "awma123")
+            //     return view('admin.posts.create');
 
-            return view('posts.create');
+            return view('admin.posts.create');
         }
         abort(403);
     }
@@ -82,6 +93,23 @@ class PostController extends Controller
         return redirect('/')->with('success', 'Your post has been added.');
     }
 
+    public function edit(Post $post)
+    {
+        return view('posts.edit', [
+            'post' => $post
+        ]);
+    }
+
+    public function update(Post $post)
+    {
+        $attributes = $this->validatePost($post);
+        // dd($attributes);
+
+        UpdatePost::dispatch($attributes, $post);
+
+        return back()->with('success', 'Post updated');
+    }
+
     public function validatePost(?Post $post = null): array
     {
         $post = $post ?? new Post();
@@ -93,7 +121,6 @@ class PostController extends Controller
             'body' => 'required',
             'category_id' => ['required', Rule::exists('categories', 'id')],
             'in_draft' => 'nullable',
-            'user_id' => $post->exists ? ['required'] : ['nullable']
         ]);
 
         return $attributes;

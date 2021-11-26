@@ -14,6 +14,10 @@ class Post extends Model
 
     protected $guarded = ['id'];
     // protected $fillable = ['title', 'body', 'excerpt'];
+    protected $attributes = [
+        'no_views' => 0,
+        'thumbnail' => 'XIntnPfkF22VfyajHzvo5xkLMAd3hWHAzHqgUloO.png'
+    ];
 
     public function category()
     {
@@ -73,5 +77,10 @@ class Post extends Model
     public function scopePublished($query)
     {
         $query->where('in_draft', 0);
+    }
+
+    public function bookmarks()
+    {
+        return $this->hasMany(Bookmark::class);
     }
 }

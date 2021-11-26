@@ -9,29 +9,46 @@
                     Links
                 </li>
                 <li class="border-b pb-4 text-sm">
+                    @admin
                     <a
                         href="/admin/posts"
                         class="{{ request()->is('admin/posts') ? 'text-blue-500' : '' }}"
                     >
                         All Posts
                     </a>
+                @else
+                    <a
+                        href="/{{ auth()->user()->username }}/posts"
+                        class="{{ request()->is(auth()->user()->username . '/posts') ? 'text-blue-500' : '' }}"
+                    >
+                        All Posts
+                    </a>
+                    @endadmin
                 </li>
                 <li class="border-b pb-4 text-sm">
                     <a
                         href="/posts/{{ auth()->user()->username }}/create"
-                        class="{{ request()->is('/posts/' . auth()->user()->username . '/create') ? 'text-blue-500' : '' }}"
+                        class="{{ request()->routeIs('postcreate') ? 'text-blue-500' : '' }}"
                     >
                         New Post
                     </a>
                 </li>
-                {{-- <li class="border-b pb-4 text-sm">
+                <li class="border-b pb-4 text-sm">
                     <a
-                        href="/user/{{ $post->author->username }}/settings"
-                        class="{{ request()->routeIs('usersettings') ? 'text-blue-500' : '' }}"
+                        href="/user/{{ auth()->user()->username }}/edit"
+                        class="{{ request()->routeIs('edituser') ? 'text-blue-500' : '' }}"
                     >
                         Account
                     </a>
-                </li> --}}
+                </li>
+                <li class="border-b pb-4 text-sm">
+                    <a
+                        href="/bookmark"
+                        class="{{ request()->is('bookmark') ? 'text-blue-500' : '' }}"
+                    >
+                        Bookmarks
+                    </a>
+                </li>
             </ul>
         </aside>
         <main class="flex-1">

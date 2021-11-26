@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AdminPostController;
+use App\Http\Controllers\BookmarkController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\NewsletterController;
 use App\Http\Controllers\PostCommentsController;
@@ -9,6 +10,7 @@ use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\SessionsController;
 use App\Http\Controllers\FeedController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\UserPostController;
 use App\Services\Newsletter;
 use Illuminate\Support\Facades\Route;
 
@@ -24,7 +26,6 @@ use Illuminate\Support\Facades\Route;
 */
 
 
-Route::get('/', [PostController::class, 'index'])->name('home');
 
 
 // $files = File::files(resource_path("posts/"));
@@ -74,9 +75,12 @@ Route::get('/', [PostController::class, 'index'])->name('home');
 
 
 //! any appropriate attribute can be used to find the page you want, eg. /posts/{post:title}, we just have to change the link attribute in the corresponfing page
+Route::get('/', [PostController::class, 'index'])->name('home');
 Route::get('/posts/{post:slug}', [PostController::class, 'show']);
-Route::get('posts/{user:username}/create', [PostController::class, 'create']);
+Route::get('posts/{user:username}/create', [PostController::class, 'create'])->name('postcreate');
 Route::post('/posts/{user:username}', [PostController::class, 'store']);
+Route::get('/posts/{post}/edit', [PostController::class, 'edit'])->name('postedit');
+Route::patch('/posts/{post}', [PostController::class, 'update']);
 
 // return $slug;
 // $path = __DIR__ . "/../resources/posts/{$slug}.html";
@@ -162,3 +166,9 @@ Route::patch('/user/{user:username}', [UserController::class, 'update'])->name('
 
 Route::get('/comment/{comment}/edit', [CommentController::class, 'edit']);
 Route::patch('/comment/{comment}/', [CommentController::class, 'update']);
+
+Route::get('{user:username}/posts', [UserPostController::class, 'index'])->name('userposts');
+
+Route::get('bookmark', [BookmarkController::class, 'index'])->name('allBookmark');
+Route::post('bookmark', [BookmarkController::class, 'store'])->name('createBookmark');
+Route::delete('bookmark/{bookmark}', [BookmarkController::class, 'destroy'])->name('deleteBookmark');
