@@ -8,5 +8,5 @@
         id="{{ $field }}"
         {{ $attributes(['value' => old($field), 'class' => 'border border-gray-200 p-2 w-full']) }}
     >
-    <x-form.error field=" {{ $field }} " />
+    <x-form.error field="{{ $field }}" />
 </x-form.field>

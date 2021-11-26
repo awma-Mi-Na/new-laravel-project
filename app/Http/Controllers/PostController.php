@@ -90,7 +90,7 @@ class PostController extends Controller
 
         CreateNewPost::dispatch($attributes);
 
-        return redirect('/')->with('success', 'Your post has been added.');
+        return back()->with('success', 'Your post has been added.');
     }
 
     public function edit(Post $post)

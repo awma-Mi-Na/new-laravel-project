@@ -5,7 +5,7 @@
 
                 <h1 class="text-xl font-bold text-center mb-10">Register!</h1>
                 <form
-                    action=""
+                    action="/register"
                     method="post"
                 >
                     @csrf

@@ -11,8 +11,12 @@ use App\Http\Controllers\SessionsController;
 use App\Http\Controllers\FeedController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\UserPostController;
+use App\Models\Post;
 use App\Services\Newsletter;
+use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Storage;
 
 /*
 |--------------------------------------------------------------------------
@@ -126,8 +130,8 @@ Route::patch('/posts/{post}', [PostController::class, 'update']);
 //     ]);
 // });
 
-Route::get('/register', [RegisterController::class, 'create'])->middleware('guest');
-Route::post('/register', [RegisterController::class, 'store'])->middleware('guest');
+Route::get('register', [RegisterController::class, 'create'])->middleware('guest');
+Route::post('register', [RegisterController::class, 'store'])->middleware('guest');
 
 Route::post('logout', [SessionsController::class, 'destroy'])->middleware('auth');
 
@@ -172,3 +176,26 @@ Route::get('{user:username}/posts', [UserPostController::class, 'index'])->name(
 Route::get('bookmark', [BookmarkController::class, 'index'])->name('allBookmark');
 Route::post('bookmark', [BookmarkController::class, 'store'])->name('createBookmark');
 Route::delete('bookmark/{bookmark}', [BookmarkController::class, 'destroy'])->name('deleteBookmark');
+
+Route::get('test', function () {
+    // $files = Storage::files(storage_path('app\public\thumbnails'));
+    $files = Storage::disk('thumbnails_path')->allFiles();
+    $thumbnails = Post::select('thumbnail')->distinct()->get()->toArray();
+    $thumbnails = array_column($thumbnails, 'thumbnail');
+    $to_delete = array_diff($files, $thumbnails);
+    Storage::disk('thumbnails_path')->delete($to_delete);
+    logger('files to be deleted', $to_delete);
+    $files = Storage::disk('thumbnails_path')->allFiles();
+    logger('files in thumbnails_path after delete', $files);
+
+    // dd($files, $thumbnails, $to_delete);
+    // Log::info($files);
+
+    // foreach ($files as $file) {
+    //     if ($file != 'XIntnPfkF22VfyajHzvo5xkLMAd3hWHAzHqgUloO.png') {
+    //         Storage::disk('thumbnails_path')->delete($file);
+    //         Post::where('thumbnail', $file)->delete();
+    //     }
+    // }
+
+});
