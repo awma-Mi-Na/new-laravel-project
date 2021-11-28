@@ -60,4 +60,9 @@ class User extends Authenticatable
     {
         return $this->hasMany(Bookmark::class);
     }
+
+    public function followers()
+    {
+        return $this->hasMany(Follower::class);
+    }
 }

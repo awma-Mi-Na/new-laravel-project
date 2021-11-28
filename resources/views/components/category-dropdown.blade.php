@@ -28,7 +28,7 @@
         {{-- :active="isset($currentCategory) && $currentCategory->is($category)"> --}}
 
         <x-dropdown-item
-            href="/?category={{ $category->slug }} & {{ http_build_query(request()->except('category', 'page')) }}"
+            href="/?category={{ $category->slug }}&{{ http_build_query(request()->except('category', 'page')) }}"
             :active="request('category')===($category->slug)"
         >
             {{ ucwords($category->name) }}

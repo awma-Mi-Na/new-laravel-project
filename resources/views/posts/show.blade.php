@@ -1,6 +1,26 @@
-{{-- @php
-dd(!$post->bookmarks->where('user_id', auth()->user()->id)->count());
-@endphp --}}
+@php
+// $followers = $post->author->followers->where('follower_id', auth()->user()->id)->toArray();
+// $followers = array_column($followers, 'user_id');
+// dd(in_array($post->author->id, $followers));
+
+// foreach ($followers as $follower) {
+//     logger($follower['follower_id']);
+// }
+// dd($followers->follower_id);
+// $followers = array_filter($followers, function ($follower) {
+//     return $follower['follower_id'] == 2;
+// });
+
+// $following = array_column($followers, 'user_id');
+
+// want: to select the user_id from followers table where the followers_id is equal to the logged in user
+// dd(auth()->user()->id . ' is following => ', $following);
+
+dd($post->author->followers->contains(function($value,'follower_id'){
+    return;
+
+}));
+@endphp
 
 <x-layout>
     <section class="px-6 py-8">
@@ -16,14 +36,12 @@ dd(!$post->bookmarks->where('user_id', auth()->user()->id)->count());
                             >
                                 @csrf
                                 <input
-                                    class="border border-gray-400 p-2 w-full"
                                     type="hidden"
                                     name="user_id"
                                     id="user_id"
                                     value="{{ auth()->user()->id }}"
                                 >
                                 <input
-                                    class="border border-gray-400 p-2 w-full"
                                     type="hidden"
                                     name="post_id"
                                     id="post_id"
@@ -52,6 +70,11 @@ dd(!$post->bookmarks->where('user_id', auth()->user()->id)->count());
                             </a>
                         </div>
                     </div>
+
+                    @if ($post->author->id !== auth()->user()->id && )
+                        <x-follow-button :post="$post" />
+                    @endif
+                    {{-- <x-follow-button :post="$post" /> --}}
 
                     <p class="mt-4 block text-gray-400 text-xs">
                         Published <time> {{ $post->created_at->diffForHumans() }} </time>
