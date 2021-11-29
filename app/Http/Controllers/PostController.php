@@ -90,6 +90,9 @@ class PostController extends Controller
 
         CreateNewPost::dispatch($attributes);
 
+        //? sending mail to all followers of post's author
+        $followers = User::find(auth()->user()->id)->followers;
+
         return back()->with('success', 'Your post has been added.');
     }
 

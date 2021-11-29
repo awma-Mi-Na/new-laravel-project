@@ -208,3 +208,7 @@ Route::post('follow', [FollowerController::class, 'store']);
 Route::get('follow/{user:username}', [FollowerController::class, 'show']);
 Route::get('following/{user:username}', FollowingController::class);
 Route::delete('unfollow/{follower}', [FollowerController::class, 'destroy']);
+
+Route::get('mail/{post}', function (Post $post) {
+    return new App\Mail\NewPostPublished($post);
+});
