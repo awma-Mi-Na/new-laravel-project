@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Http\Controllers\FollowingController;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -63,6 +64,10 @@ class User extends Authenticatable
 
     public function followers()
     {
-        return $this->hasMany(Follower::class);
+        return $this->hasMany(Follower::class, 'user_id');
+    }
+    public function following()
+    {
+        return $this->hasMany(Follower::class, 'follower_id');
     }
 }

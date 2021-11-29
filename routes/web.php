@@ -10,6 +10,7 @@ use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\SessionsController;
 use App\Http\Controllers\FeedController;
 use App\Http\Controllers\FollowerController;
+use App\Http\Controllers\FollowingController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\UserPostController;
 use App\Models\Follower;
@@ -204,3 +205,6 @@ Route::delete('bookmark/{bookmark}', [BookmarkController::class, 'destroy'])->na
 
 
 Route::post('follow', [FollowerController::class, 'store']);
+Route::get('follow/{user:username}', [FollowerController::class, 'show']);
+Route::get('following/{user:username}', FollowingController::class);
+Route::delete('unfollow/{follower}', [FollowerController::class, 'destroy']);

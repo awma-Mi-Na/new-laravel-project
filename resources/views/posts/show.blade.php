@@ -1,5 +1,5 @@
-@php
-// $followers = $post->author->followers->where('follower_id', auth()->user()->id)->toArray();
+{{-- @php --}}
+{{-- // $followers = $post->author->followers->where('follower_id', auth()->user()->id)->toArray();
 // $followers = array_column($followers, 'user_id');
 // dd(in_array($post->author->id, $followers));
 
@@ -16,11 +16,8 @@
 // want: to select the user_id from followers table where the followers_id is equal to the logged in user
 // dd(auth()->user()->id . ' is following => ', $following);
 
-dd($post->author->followers->contains(function($value,'follower_id'){
-    return;
-
-}));
-@endphp
+// dd($post->author->followers->contains('follower_id',auth()->user()->id));
+// @endphp --}}
 
 <x-layout>
     <section class="px-6 py-8">
@@ -71,8 +68,12 @@ dd($post->author->followers->contains(function($value,'follower_id'){
                         </div>
                     </div>
 
-                    @if ($post->author->id !== auth()->user()->id && )
+                    @if ($post->author->id !== auth()->user()->id && !$post->author->followers->contains('follower_id', auth()->user()->id))
                         <x-follow-button :post="$post" />
+                    @elseif ($post->author->id === auth()->user()->id)
+                    @else
+                        <p class="text-red-500 mt-4 text-sm cursor-default">Following
+                            Author</p>
                     @endif
                     {{-- <x-follow-button :post="$post" /> --}}
 

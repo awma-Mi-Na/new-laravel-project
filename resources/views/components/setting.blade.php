@@ -49,6 +49,22 @@
                         Bookmarks
                     </a>
                 </li>
+                <li class="border-b pb-4 text-sm">
+                    <a
+                        href="/follow/{{ auth()->user()->username }}"
+                        class="{{ request()->is('follow/' . auth()->user()->username) ? 'text-blue-500' : '' }}"
+                    >
+                        Followers
+                    </a>
+                </li>
+                <li class="border-b pb-4 text-sm">
+                    <a
+                        href="/following/{{ auth()->user()->username }}"
+                        class="{{ request()->is('following/' . auth()->user()->username) ? 'text-blue-500' : '' }}"
+                    >
+                        Following
+                    </a>
+                </li>
             </ul>
         </aside>
         <main class="flex-1">
