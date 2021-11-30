@@ -5,6 +5,7 @@ namespace App\Providers;
 use App\Models\User;
 use App\Services\Newsletter;
 use App\Services\MailchimpNewsletter;
+use Auth;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\Facades\Gate;
@@ -46,8 +47,9 @@ class AppServiceProvider extends ServiceProvider
         });
 
         Blade::if('admin', function () {
+
             if ((auth()->user()) !== null)
-                return auth()->user()->can('admin');
+                return Auth::user()->can('admin');
         });
 
         // Gate::define('user_check', function (User $user) {

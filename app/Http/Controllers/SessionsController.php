@@ -2,15 +2,16 @@
 
 namespace App\Http\Controllers;
 
+use Auth;
 use Illuminate\Http\Request;
 use Illuminate\Validation\ValidationException;
+use Route;
 
 class SessionsController extends Controller
 {
     public function destroy()
     {
-        auth()->logout();
-
+        Auth::logout();
         return redirect('/')->with('success', 'Goodbye!');
     }
 
@@ -29,7 +30,8 @@ class SessionsController extends Controller
 
         // attempt to authenticate and log in the user
         // based on the provided credentials
-        if (auth()->attempt($credentials)) {
+
+        if (Auth::attempt($credentials)) {
             // redirect with a success flash message
             //? session()->regenerate(); this is to generate random session tokens??
             return redirect('/')->with('success', 'Welcome Back!');

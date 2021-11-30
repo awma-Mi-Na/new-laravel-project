@@ -33,10 +33,10 @@
     <p>
         <a
             href="/register"
-            class="hover:underline"
+            class="hover:underline text-blue-500 hover:text-blue-600"
         >Register</a> or <a
             href="/login"
-            class="hover:underline"
+            class="hover:underline text-blue-500 hover:text-blue-600"
         >log in</a> to leave a comment.
     </p>
 @endauth

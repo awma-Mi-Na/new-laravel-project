@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use Auth;
+use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\Request;
 
 class RegisterController extends Controller
@@ -32,7 +34,9 @@ class RegisterController extends Controller
         //? create the user in the db
         $user = User::create($attributes);
 
-        auth()->login($user);
+        event(new Registered($user));
+
+        Auth::login($user);
 
         session()->flash('success', 'Your account has been created.');
 

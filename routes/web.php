@@ -18,6 +18,7 @@ use App\Models\Follower;
 use App\Models\Post;
 use App\Models\User;
 use App\Services\Newsletter;
+use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
@@ -228,4 +229,19 @@ Route::get('/testing', function () {
         dump($follower->follower->email);
     }
     dump($followers);
+});
+
+// email verification routes
+// Route::get('/email/verify', function () {
+//     return view('emails.verify');
+// })->middleware('auth')->name('verification.notice');
+
+// Route::get('/email/verify/{id}/{hash}', function (EmailVerificationRequest $request) {
+//     $request->fulfill();
+
+//     return redirect('/')->with('success', 'Email has been verified');
+// })->middleware(['auth', 'signed'])->name('verification.verify');
+
+Route::get('apptest', function () {
+    dd(app());
 });

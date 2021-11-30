@@ -26,32 +26,34 @@
                 <div class="col-span-4 lg:text-center mb-10">
                     <div class="mb-8 text-left text-sm">
                         {{-- <a href="{!! route('createBookmark', ['user' => auth()->user()->id, 'post' => $post->id]) !!}">Add to bookmark</a> --}}
-                        @if (!$post->bookmarks->where('user_id', auth()->user()->id)->count())
-                            <form
-                                action="/bookmark"
-                                method="POST"
-                            >
-                                @csrf
-                                <input
-                                    type="hidden"
-                                    name="user_id"
-                                    id="user_id"
-                                    value="{{ auth()->user()->id }}"
+                        @auth
+                            @if (!$post->bookmarks->where('user_id', auth()->user()->id)->count())
+                                <form
+                                    action="/bookmark"
+                                    method="POST"
                                 >
-                                <input
-                                    type="hidden"
-                                    name="post_id"
-                                    id="post_id"
-                                    value="{{ $post->id }}"
-                                >
-                                <button
-                                    type="submit"
-                                    class="hover:underline hover:text-blue-600 text-blue-500"
-                                >Add to bookmark</button>
-                            </form>
-                        @else
-                            <p class="text-red-400">Added to bookmarks</p>
-                        @endif
+                                    @csrf
+                                    <input
+                                        type="hidden"
+                                        name="user_id"
+                                        id="user_id"
+                                        value="{{ auth()->user()->id }}"
+                                    >
+                                    <input
+                                        type="hidden"
+                                        name="post_id"
+                                        id="post_id"
+                                        value="{{ $post->id }}"
+                                    >
+                                    <button
+                                        type="submit"
+                                        class="hover:underline hover:text-blue-600 text-blue-500"
+                                    >Add to bookmark</button>
+                                </form>
+                            @else
+                                <p class="text-red-400">Added to bookmarks</p>
+                            @endif
+                        @endauth
                     </div>
                     <img
                         src={{ asset('storage/thumbnails/' . $post->thumbnail) }}
@@ -67,14 +69,15 @@
                             </a>
                         </div>
                     </div>
-
-                    @if ($post->author->id !== auth()->user()->id && !$post->author->followers->contains('follower_id', auth()->user()->id))
-                        <x-follow-button :post="$post" />
-                    @elseif ($post->author->id === auth()->user()->id)
-                    @else
-                        <p class="text-red-500 mt-4 text-sm cursor-default">Following
-                            Author</p>
-                    @endif
+                    @auth
+                        @if ($post->author->id !== auth()->user()->id && !$post->author->followers->contains('follower_id', auth()->user()->id))
+                            <x-follow-button :post="$post" />
+                        @elseif ($post->author->id === auth()->user()->id)
+                        @else
+                            <p class="text-red-500 mt-4 text-sm cursor-default">Following
+                                Author</p>
+                        @endif
+                    @endauth
                     {{-- <x-follow-button :post="$post" /> --}}
 
                     <p class="mt-4 block text-gray-400 text-xs">
