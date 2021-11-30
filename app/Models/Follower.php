@@ -9,6 +9,7 @@ use Illuminate\Validation\Rule;
 class Follower extends Model
 {
     use HasFactory;
+    // protected $with = ['follower'];
 
     public function following()
     {

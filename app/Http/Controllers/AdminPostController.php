@@ -4,10 +4,13 @@ namespace App\Http\Controllers;
 
 use App\Jobs\CreateNewPost;
 use App\Jobs\UpdatePost;
+use App\Mail\NewPost;
 use App\Models\Post;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 use Illuminate\Validation\Rule;
+use Mail;
 
 class AdminPostController extends Controller
 {
@@ -48,9 +51,22 @@ class AdminPostController extends Controller
     public function update(Post $post)
     {
         $attributes = $this->validatePost($post);
-        // dd($attributes);
 
-        UpdatePost::dispatch($attributes, $post);
+        // UpdatePost::dispatch($attributes, $post);
+        if (isset($attributes['thumbnail'])) {
+            $attributes['thumbnail'] = request()->file('thumbnail')->store('thumbnails');
+        }
+
+        $post->update($attributes);
+
+        // dd(($post->in_draft) === '0');
+        //? if the post is published then send email to all the followers of the author of that post
+        if ($post->in_draft === '0') {
+            $followers = User::find($post->author->id)->followers;
+            foreach ($followers as $follower) {
+                Mail::to($follower->follower->email)->send(new NewPost($post));
+            }
+        }
 
         return back()->with('success', 'Post updated');
     }

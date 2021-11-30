@@ -8,7 +8,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 
-class NewPostPublished extends Mailable
+class NewPost extends Mailable implements ShouldQueue
 {
     use Queueable, SerializesModels;
 
@@ -17,7 +17,7 @@ class NewPostPublished extends Mailable
      *
      * @return void
      */
-
+    // public $afterCommit = true;
     protected $post;
     public function __construct(Post $post)
     {
@@ -31,12 +31,11 @@ class NewPostPublished extends Mailable
      */
     public function build()
     {
-        return $this
-            ->view('emails.new-post-published')
-            ->with([
-                'author' => $this->post->author,
-                'title' => $this->post->title,
-                'thumbnail' => $this->post->thumbnail
-            ]);
+        return $this->markdown('emails.posts.new', [
+            'author' => $this->post->author->name,
+            'title' => $this->post->title,
+            'thumbnail' => $this->post->thumbnail,
+            'url' => 'http://laravel.test/posts/' . $this->post->slug
+        ]);
     }
 }

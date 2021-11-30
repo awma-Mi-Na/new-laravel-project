@@ -2,13 +2,16 @@
 
 namespace App\Jobs;
 
+use App\Mail\NewPost;
 use App\Models\Post;
+use App\Models\User;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldBeUniqueUntilProcessing;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
+use Mail;
 
 class CreateNewPost implements ShouldQueue
 {
@@ -35,7 +38,14 @@ class CreateNewPost implements ShouldQueue
      */
     public function handle()
     {
-        Post::create($this->attributes);
+        $post = Post::create($this->attributes);
+
+        //? sending mail to all followers of post's author
+        $followers = User::find(auth()->user()->id)->followers;
+        foreach ($followers as $follower) {
+            Mail::to($follower->follower->email)->send(new NewPost($post));
+        }
+
         // info('this is from create new post');
     }
 }

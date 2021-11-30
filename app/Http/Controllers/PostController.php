@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Jobs\CreateNewPost;
 use App\Jobs\UpdatePost;
+use App\Mail\NewPost;
 use Illuminate\Http\Request;
 use App\Models\Post;
 use App\Models\Category;
@@ -11,6 +12,7 @@ use App\Models\User;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Validation\Rule;
+use Mail;
 
 class PostController extends Controller
 {
@@ -81,17 +83,17 @@ class PostController extends Controller
     public function store()
     {
         $attributes = $this->validatePost(new Post());
-        // dd($attributes);
 
         $attributes['user_id'] = auth()->id();
         $attributes['thumbnail'] = request()->file('thumbnail')->store('/', ['disk' => 'thumbnails_path']);
+        // dd($attributes);
 
         // Post::create($attributes);
+        // $followers = User::find(auth()->user()->id)->followers;
+        // dd()
 
         CreateNewPost::dispatch($attributes);
 
-        //? sending mail to all followers of post's author
-        $followers = User::find(auth()->user()->id)->followers;
 
         return back()->with('success', 'Your post has been added.');
     }

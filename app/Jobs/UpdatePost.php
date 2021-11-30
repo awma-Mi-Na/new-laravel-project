@@ -2,13 +2,16 @@
 
 namespace App\Jobs;
 
+use App\Mail\NewPost;
 use App\Models\Post;
+use App\Models\User;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldBeUnique;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
+use Mail;
 
 class UpdatePost implements ShouldQueue
 {
@@ -39,5 +42,9 @@ class UpdatePost implements ShouldQueue
         }
 
         $this->post->update($this->attributes);
+        $followers = User::find(auth()->user()->id)->followers;
+        foreach ($followers as $follower) {
+            Mail::to($follower->follower->email)->send(new NewPost($this->post));
+        }
     }
 }

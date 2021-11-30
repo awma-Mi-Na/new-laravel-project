@@ -13,11 +13,14 @@ use App\Http\Controllers\FollowerController;
 use App\Http\Controllers\FollowingController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\UserPostController;
+use App\Mail\NewPost;
 use App\Models\Follower;
 use App\Models\Post;
+use App\Models\User;
 use App\Services\Newsletter;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Storage;
 
@@ -210,5 +213,19 @@ Route::get('following/{user:username}', FollowingController::class);
 Route::delete('unfollow/{follower}', [FollowerController::class, 'destroy']);
 
 Route::get('mail/{post}', function (Post $post) {
-    return new App\Mail\NewPostPublished($post);
+    $users = User::find(3);
+    $followers = $users->followers;
+    foreach ($followers as $follower) {
+        Mail::to($follower->follower->email)->send(new NewPost($post));
+    }
+    return new App\Mail\NewPost($post);
+});
+
+Route::get('/testing', function () {
+    $user = User::find(3);
+    $followers = $user->followers;
+    foreach ($followers as $follower) {
+        dump($follower->follower->email);
+    }
+    dump($followers);
 });
