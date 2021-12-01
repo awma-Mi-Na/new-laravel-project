@@ -11,19 +11,16 @@ use App\Http\Controllers\SessionsController;
 use App\Http\Controllers\FeedController;
 use App\Http\Controllers\FollowerController;
 use App\Http\Controllers\FollowingController;
+use App\Http\Controllers\SmsController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\UserPostController;
 use App\Mail\NewPost;
-use App\Models\Follower;
 use App\Models\Post;
 use App\Models\User;
-use App\Services\Newsletter;
-use Illuminate\Foundation\Auth\EmailVerificationRequest;
-use Illuminate\Support\Facades\File;
-use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Route;
-use Illuminate\Support\Facades\Storage;
+
+use Nexmo\Laravel\Facade\Nexmo;
 
 /*
 |--------------------------------------------------------------------------
@@ -245,3 +242,5 @@ Route::get('/testing', function () {
 Route::get('apptest', function () {
     dd(app());
 });
+
+Route::get('sms/{user}', [SmsController::class, 'create']);

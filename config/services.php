@@ -35,6 +35,10 @@ return [
         'lists' => [
             'subscribers' => env('MAILCHIMP_SUBSCRIBERS_LIST')
         ]
+    ],
+
+    'nexmo' => [
+        'sms_from' => 'Blog Test'
     ]
 
 ];
