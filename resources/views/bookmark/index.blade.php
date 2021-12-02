@@ -29,7 +29,7 @@
                                 </tr>
                             </thead>
                             <tbody class="bg-white divide-y divide-gray-200">
-                                @if ($bookmarks->count())
+                                @if ($bookmarks->count() > 0)
 
                                     @foreach ($bookmarks as $bookmark)
                                         <tr>
@@ -55,6 +55,7 @@
                                                         class="text-xs text-blue-400 hover:text-red-400"
                                                         @click="check = confirm('are you sure you want to delete: {{ $bookmark->post->title }}?'); conf = check;"
                                                     >Delete</button>
+                                                </form>
                                             </td>
                                         </tr>
                                     @endforeach

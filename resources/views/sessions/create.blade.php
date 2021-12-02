@@ -15,12 +15,12 @@
                         aria-autocomplete="email"
                     />
 
-                    <x-form.input
+                    {{-- <x-form.input
                         field="password"
                         type="password"
                         aria-autocomplete="current-password"
-                    />
-
+                    /> --}}
+                    <x-form.password-showable />
                     <x-form.button>Log In</x-form.button>
 
                 </form>

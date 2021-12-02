@@ -103,6 +103,7 @@ defer
                             x-data="{}"
                             @click.prevent="document.querySelector('#logout-form').submit()"
                         >
+                            {{-- @click.prevent -> prevent property as the name suggests will prevent the default action of the container tag, here it is an achor tag. So, upon clicking this tag the element specified on the RHS will be activated(? dk if thats the right term), here the form with the id:logout-form will be submitted --}}
                             Logout
                         </x-dropdown-item>
 

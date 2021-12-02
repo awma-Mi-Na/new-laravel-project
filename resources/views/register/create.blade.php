@@ -16,12 +16,8 @@
                         type="email"
                         autocomplete="email"
                     />
-                    <x-form.input
-                        field="password"
-                        type="password"
-                        autocomplete="new-password"
-                    />
 
+                    <x-form.password-showable />
 
                     <x-form.button>Submit</x-form.button>
 

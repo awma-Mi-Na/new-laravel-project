@@ -12,6 +12,7 @@ class BookmarkController extends Controller
     public function index()
     {
         $bookmarks = Bookmark::where('user_id', auth()->user()->id)->get();
+        // dd($bookmarks->toArray());
         return view('bookmark.index', ['bookmarks' => $bookmarks]);
     }
 

@@ -55,7 +55,7 @@
                                                     @method('DELETE')
                                                     <button
                                                         class="text-xs text-blue-400 hover:text-red-400"
-                                                        @click="check = confirm('are you sure you want to delete: {{ $post->title }}?'); conf = check;"
+                                                        @click="check = confirm('Are you sure you want to delete: {{ $post->title }}?'); conf = check;"
                                                     >Delete</button>
                                                 </form>
                                             </td>
@@ -69,8 +69,6 @@
                                         </td>
                                     </tr>
                                 @endif
-
-                                <!-- More people... -->
                             </tbody>
                         </table>
                     </div>
